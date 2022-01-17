@@ -3,6 +3,8 @@
 #include<time.h>
 
 
+#define N 10000
+
 typedef struct{
 	int x,y;
 }int2;
@@ -18,11 +20,11 @@ int2 find2Max(int* ar){
 		max2 =ar[0];
 	}
 	
-	for (int i = 0;i<20;i++){
+	for (int i = 0;i<N;i++){
 		if(ar[i] > max ){
 			max = ar[i];
 		}
-		if(ar[(i+1)%20] > max2 && ar[(i+1)%20] < max) {
+		if(ar[(i+1)%N] > max2 && ar[(i+1)%N] < max) {
 			max2 = ar[i+1];
 		}
 	}
@@ -34,8 +36,8 @@ int2 find2Max(int* ar){
 int main(){
 	srand(time(NULL));
 	
-	int ar[20];
-	for (int i = 0;i<20;i++){
+	int ar[N];
+	for (int i = 0;i<N;i++){
 		ar[i] = rand()%50;
 		std::cout<<ar[i]<<'\n';
 	}
