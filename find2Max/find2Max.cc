@@ -5,7 +5,7 @@
 
 #define N 10000
 
-typedef struct{
+typedef struct{											 //2 int vector
 	int x,y;
 }int2;
 
@@ -34,12 +34,12 @@ int2 find2Max(int* ar){
 
 
 int main(){
-	srand(time(NULL));
+	srand(time(NULL));									//set seed based on current time
 	
 	int ar[N];
 	for (int i = 0;i<N;i++){
-		ar[i] = rand()%50;
-		std::cout<<ar[i]<<'\n';
+		ar[i] = rand()%50;								//set randon between 0 and 50		
+		std::cout<<ar[i]<<'\n';								
 	}
 	
 	std::cout<<"\n Max "<<find2Max(ar).x <<"  Second Max "<<find2Max(ar).y;
