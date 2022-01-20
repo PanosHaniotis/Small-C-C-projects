@@ -57,27 +57,32 @@ class sparse{
 	
 	sparse operator*(const sparse& b){
 		
-		matrix C[ data[NNZ][ROW] ] [ b.data[NNZ][COLLUM] ];
 		
-		for (int i=0; i<NNZ-1; i++) {
-		  for (int j=0; j<b.NNZ-1; j++) {
-		   
-		    for (int m=data[i][ROW]; m < data[i+1][ROW]; m++) {
-		      int k=data[m][ROW];
-		      for (int p=b.data[j][COLLUM]; p < b.data[j+1][COLLUM]; p++) {
-		        if (b.data[p][ROW] == k){
-				
-		          C[m][p]  = C[m][p] +  data[m][VALUE]*b.data[p][VALUE];
-		          
-		      	}
-		      }
-		    }
-		  }
-		}
+		
+		matrix C;
+		C.assign (4,{1,1,1,1});
+		//matrix C[ data[NNZ][ROW] ] [ b.data[NNZ][COLLUM] ];
+		
+//		for (int i=0; i<NNZ-1; i++) {
+//		  for (int j=0; j<b.NNZ-1; j++) {
+//		   
+//		    for (int m=data[i][ROW]; m < data[i+1][ROW]; m++) {
+//		      int k=data[m][ROW];
+//		      for (int p=b.data[j][COLLUM]; p < b.data[j+1][COLLUM]; p++) {
+//		        if (b.data[p][ROW] == k){
+//				
+//		          C[m][p]  = C[m][p] +  data[m][VALUE]*b.data[p][VALUE];
+//		          
+//		      	}
+//		      }
+//		    }
+//		  }
+//		}
+
 		return sparse(C);
 	}
 
-	void transpose(){ 
+	void convertCSRToCSC(){ 
 	    int i, j; 
 	    for (i = 0; i < NNZ-1; i++)     
 	      
@@ -128,11 +133,16 @@ int main(){
 			
 	sparse obj_b(4,3);
 	obj_b.insertToCSR(1,1,100);
-
 	obj_b.printData();
 	
-	obj_a.transpose();
+	obj_a.convertCSRToCSC();
 	obj_a.printData();
+	
+	sparse obj_c = obj_a*obj_b;
+	
+	obj_c.printData();
+	
+
 	
 	
 	
