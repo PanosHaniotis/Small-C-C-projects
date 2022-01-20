@@ -6,6 +6,8 @@ https://en.wikipedia.org/wiki/Sparse_matrix										Sparse Matrix - Wikipedia
 
 https://developpaper.com/instructions-for-using-python-scipy-sparse-matrix/		Python scipy sprase matrix/
 
+https://www.cplusplus.com/reference/vector/vector/								std::vector refference
+
 
 
 
