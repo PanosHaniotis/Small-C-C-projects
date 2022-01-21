@@ -54,7 +54,7 @@ class sparse{
     sparse operator*(sparse b){
 		
 		
-		if(this->r != b.r){
+		if(this->c != b.r){
 		
 			std::cout<<"\nIllegal matrix boundaries\n";
 			matrix error = {{0,0},{0,0}};
@@ -114,7 +114,7 @@ matrix mul(matrix& a, matrix& b){
 	int rb = b.size();
 	int cb = b[0].size();	
 	
-	if(ra != cb){
+	if(ca != rb){
 		
 		std::cout<<"\nIllegal matrix boundaries\n";
 		return {{0,0},{0,0}};
