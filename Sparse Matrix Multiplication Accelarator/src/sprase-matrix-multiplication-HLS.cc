@@ -27,52 +27,24 @@ class sparse{
 	 	r = matrix.size();
 		c = matrix[0].size();
 		
-		convertToCSR(matrix);
-		
-		
- 		
- 						
-	}
-	
-
-	
-	void insertToCSR(int r, int c, int val){
-		
-		data.push_back({r,c,val});
-	 	NNZ++;
-	}
-	
-	void printData(){
-	    std::cout << "\nDimension of Sparse Matrix: " << NNZ << " x " << 3;
-	    std::cout << "\nSparse Matrix: \nRow  Column  Value\n";
-	 
-	    
-		for (int i = 0; i < NNZ; i++) {
- 
-        	std::cout << data[i][ROW] << " 	" << data[i][COLUMN] << "	" << data[i][VALUE] << "\n";
-    	}
-	}
-	
-	void convertToCSR(const matrix& matrix){
-		
 		for (int i = 0; i < r; i++){
 	        for (int j = 0; j < c; j++){
 	            if (matrix[i][j] > 0){
 
-					insertToCSR(i, j, matrix[i][j]);
+					data.push_back({i,j,matrix[i][j]});//					  Insert to CSR
+	 				NNZ++;
 				}
 			}
-		}	
-		
+		}						
 	}
+	
+
 	void convertCSRToCSC(){ 
 	    int i, j; 
 	    for (i = 0; i < NNZ-1; i++)     
-	      
-	    // Last i elements are already in place 
-	    for (j = 0; j < NNZ-i-1; j++) 
-	        if (data[j][COLUMN] > data[j+1][COLUMN]) 
-	            data[j].swap(data[j+1]);
+		    for (j = 0; j < NNZ-i-1; j++)// 							   	Last i elements are already in place 
+		        if (data[j][COLUMN] > data[j+1][COLUMN]) 
+		            data[j].swap(data[j+1]);
 
     }
     
@@ -89,7 +61,7 @@ class sparse{
 			return sparse(error);
 		}
 		
-		//initalize a a.row x b.column matrix
+		//																   Initalize an a.row x b.column matrix
 		vect vec;
 		vec.assign(b.c,0);
 		
@@ -102,11 +74,11 @@ class sparse{
 		
 		
 		
-		for(int i = 0;i < this->NNZ;i++){
+		for(int i = 0;i < this->NNZ;i++){//									For every row in a
 			
-			for(int j = 0;j < b.NNZ;j++){
+			for(int j = 0;j < b.NNZ;j++){//									For every collum in b
 				
-				if(b.data[j][ROW] == this->data[i][COLUMN] ){
+				if(b.data[j][ROW] == this->data[i][COLUMN] ){//				If b.row = a.column
 					
 					C[this->data[i][ROW]][b.data[j][COLUMN]] += this->data[i][VALUE] * b.data[j][VALUE];
 				}
@@ -116,6 +88,17 @@ class sparse{
 		}
 		
 		return sparse(C);
+	}
+	
+	void printData(){
+	    std::cout << "\nDimension of Sparse Matrix: " << NNZ << " x " << 3;
+	    std::cout << "\nSparse Matrix: \nRow  Column  Value\n";
+	 
+	    
+		for (int i = 0; i < NNZ; i++) {
+	
+	    	std::cout << data[i][ROW] << " 	" << data[i][COLUMN] << "	" << data[i][VALUE] << "\n";
+		}
 	}
 	
 	
@@ -143,7 +126,7 @@ matrix mul(matrix& a, matrix& b){
 	matrix C;
 	C.assign (ra,vec);
 	
-	std::cout<<"Matrix "<<ra<<"x"<<cb<<":"<<std::endl;
+	std::cout<<"\nMatrix "<<ra<<"x"<<cb<<":"<<std::endl;
 	
 	for (int i = 0; i < ra; i++) {
         for (int j = 0; j < cb; j++) {
