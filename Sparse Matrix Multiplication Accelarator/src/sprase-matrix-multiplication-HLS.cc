@@ -51,7 +51,7 @@ class sparse{
     
     
     
-    sparse operator*(sparse b){
+    sparse operator*(const sparse& b){
 		
 		
 		if(this->c != b.r){
@@ -68,22 +68,24 @@ class sparse{
 		matrix C;
 		C.assign (this->r,vec);
 		
-		//convert b to CSC
-		//b.convertCSRToCSC();
+		//convert a to CSC
+		this->convertCSRToCSC();
 		
 		
 		
-		
-		for(int i = 0;i < this->NNZ;i++){//									For every row in a
+		for(int i = 0;i < this->NNZ;i++){//									For every column in a
 			
-			for(int j = 0;j < b.NNZ;j++){//									For every collum in b
+			for(int j = 0;j < b.NNZ;j++){//									For every row in b
 				
-				if(b.data[j][ROW] == this->data[i][COLUMN] ){//				If b.row = a.column
+				if( this->data[i][COLUMN] == b.data[j][ROW] ){//				If b.row = a.column
 					
 					C[this->data[i][ROW]][b.data[j][COLUMN]] += this->data[i][VALUE] * b.data[j][VALUE];
+						
+				}else if(this->data[i][COLUMN] < b.data[j][ROW]){
+					break;
 				}
 				
-			}			
+			}		
 			
 		}
 		
@@ -158,14 +160,16 @@ int main(){
 	    {
 	        {1, 0, 0},
 	        {0, 0, 5},
-	        {7, 0, 0}
+	        {7, 0, 1},
+	        {7, 0, 1}
+	        
 	    };
 	    
 	    
 	matrix b =
 	    {
 	        {0, 0, 2},
-	        {0, 1, 0},
+	        {0, 1, 1},
 	        {8, 6, 0}
 
 	    };
@@ -180,7 +184,6 @@ int main(){
 	obj_a.printData();
 			
 	sparse obj_b(b);
-	obj_b.convertCSRToCSC();
 	obj_b.printData();
 	
 	
